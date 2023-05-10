@@ -1,6 +1,6 @@
 import Item from "./Item";
 
-export const ItemsList = ({ data }) => {
+export const ItemsList = ({ data, onClick }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {data?.hits?.map((hit) => (
@@ -12,6 +12,7 @@ export const ItemsList = ({ data }) => {
           author={hit.author}
           comments={hit.num_commnets}
           url={hit.url}
+          onClick={() => onClick(hit.objectID)}
         />
       ))}
     </div>

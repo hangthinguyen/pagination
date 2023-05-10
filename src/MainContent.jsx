@@ -1,7 +1,13 @@
 import { useCallback } from "react";
 import { ItemsList } from "./ItemsList";
 
-const MainContent = ({ currentPage, setCurrentPage, nbPages, data }) => {
+const MainContent = ({
+  currentPage,
+  setCurrentPage,
+  nbPages,
+  data,
+  setData,
+}) => {
   const handlePrevButton = useCallback(() => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
@@ -13,6 +19,20 @@ const MainContent = ({ currentPage, setCurrentPage, nbPages, data }) => {
       setCurrentPage(currentPage + 1);
     }
   }, [currentPage, nbPages, setCurrentPage]);
+
+  const handleRemove = useCallback(
+    (todoId) => {
+      const itemsClone = structuredClone(data);
+
+      itemsClone?.hits?.forEach((item) => {
+        if (todoId === item.objectID) {
+          itemsClone.hits.splice(itemsClone.hits.indexOf(item), 1);
+        }
+      });
+      setData(itemsClone);
+    },
+    [data, setData]
+  );
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -36,7 +56,7 @@ const MainContent = ({ currentPage, setCurrentPage, nbPages, data }) => {
         </button>
       </div>
       <div className="w-full">
-        <ItemsList data={data} />
+        <ItemsList data={data} onClick={handleRemove} />
       </div>
     </div>
   );

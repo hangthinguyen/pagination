@@ -22,7 +22,8 @@ function App() {
     fetchFollowers();
   }, [fetchFollowers]);
 
-  console.log(data.hits);
+  console.log(data);
+
   return (
     <div className="h-full flex justify-center">
       <header className="py-16 w-10/12">
@@ -37,7 +38,7 @@ function App() {
         <section className="py-4">
           {data?.nbHits === 0 ? (
             <p className="font-bold text-3xl text-[#324d67] tracking-widest py-16">
-              No search Found for {input}
+              No search Found for "{input}"
             </p>
           ) : (
             <MainContent
@@ -45,6 +46,7 @@ function App() {
               setCurrentPage={setCurrentPage}
               nbPages={data.nbPages}
               data={data}
+              setData={setData}
             />
           )}
         </section>
